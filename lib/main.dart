@@ -4,13 +4,13 @@ import 'package:egov/app_injection_container.dart';
 import 'package:egov/core/services/storage/storage_service.dart';
 import 'package:egov/core/viewmodels/view_models.dart';
 import 'package:egov/screens/auth/ui/login_screen.dart';
-import 'package:egov/screens/journeyplanning/plan_journey_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'screens/ridesharing/share_ride_view.dart';
 import 'shared/utils/resources/routes.dart';
 
 // Future<void> main() async {
@@ -25,7 +25,7 @@ import 'shared/utils/resources/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ProviderScope(child: MaterialApp(home: PlanJourneyView())));
+  runApp(const ProviderScope(child: MaterialApp(home: ShareRideView())));
 }
 
 class MyApp extends StatelessWidget {

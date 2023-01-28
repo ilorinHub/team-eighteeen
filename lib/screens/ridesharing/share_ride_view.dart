@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -73,13 +74,65 @@ class ShareRideView extends ConsumerWidget {
       return const CircularProgressIndicator.adaptive();
     });
   }
+
+  Future<bool> checkPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    try {
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        // state = AsyncValue.error(CustomException(message: "ServiceError"));
+      }
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          // state = AsyncValue.error(
+          // CustomException(message: "DeniedPermissionError"));
+        }
+      } else if (permission == LocationPermission.whileInUse) {
+        return true;
+      } else if (permission == LocationPermission.deniedForever) {
+        // state =
+        //     AsyncValue.error(CustomException(message: "DeniedForeverError"));
+      }
+      return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
 final selectedRide = StateProvider((ref) => SharableRides.taxi);
 final selectedBusStop = StateProvider((ref) => BusStops.first);
 final selectedBusTime = StateProvider((ref) => TimeOfDay.now());
 final getlocation = FutureProvider((ref) async {
-  return await Location().getLocation();
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  try {
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // state = AsyncValue.error(CustomException(message: "ServiceError"));
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // state = AsyncValue.error(
+        // CustomException(message: "DeniedPermissionError"));
+      }
+    } else if (permission == LocationPermission.whileInUse) {
+      return await Location().getLocation();
+    } else if (permission == LocationPermission.deniedForever) {
+      // state =
+      //     AsyncValue.error(CustomException(message: "DeniedForeverError"));
+    }
+    return await Location().getLocation();
+  } catch (e) {
+    rethrow;
+  }
 });
 
 enum SharableRides { bike, bus, taxi }
