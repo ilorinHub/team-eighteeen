@@ -1,26 +1,31 @@
 import 'dart:async';
 
 import 'package:egov/app_injection_container.dart';
-import 'package:egov/core/api/utils/config.dart';
 import 'package:egov/core/services/storage/storage_service.dart';
 import 'package:egov/core/viewmodels/view_models.dart';
 import 'package:egov/screens/auth/ui/login_screen.dart';
+import 'package:egov/screens/journeyplanning/plan_journey_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import 'shared/utils/resources/routes.dart';
 
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   // await StorageService.initStorageService();
+//   // StorageService().getThemeValue();
+//   await AppConfig.initDependencies();
+//   runApp(MultiProvider(providers: [
+//     ...providers,
+//   ], child: const MyApp()));
+// }
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await StorageService.initStorageService();
-  // StorageService().getThemeValue();
-  await AppConfig.initDependencies();
-  runApp(MultiProvider(providers: [
-    ...providers,
-  ], child: const MyApp()));
+  runApp(const ProviderScope(child: MaterialApp(home: PlanJourneyView())));
 }
 
 class MyApp extends StatelessWidget {
