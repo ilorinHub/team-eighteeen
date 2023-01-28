@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:egov/app_injection_container.dart';
+import 'package:egov/app_container.dart';
 import 'package:egov/core/services/storage/storage_service.dart';
 import 'package:egov/shared/utils/resources/resources.dart';
 import 'package:flutter/material.dart';

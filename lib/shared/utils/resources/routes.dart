@@ -5,6 +5,10 @@ import 'package:egov/screens/auth/ui/login_screen.dart';
 import 'package:egov/screens/auth/ui/reset_password_screen.dart';
 import 'package:egov/screens/auth/ui/signup_screen.dart';
 import 'package:egov/screens/dashboard/ui/dasboard.dart';
+import 'package:egov/screens/dashboard/ui/in_demand_routes.dart';
+import 'package:egov/screens/dashboard/ui/map_screen.dart';
+import 'package:egov/screens/dashboard/ui/rate_rider.dart';
+import 'package:egov/screens/dashboard/ui/rider_dashboard.dart';
 import 'package:egov/screens/notifications/ui/notifications.dart';
 import 'package:egov/screens/payment/ui/add_new_payment.dart';
 import 'package:egov/screens/payment/ui/payment_details.dart';
@@ -56,6 +60,14 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const WithdrawFunds());
       case ShareFunds.routeName:
         return MaterialPageRoute(builder: (_) => const ShareFunds());
+      case RateRider.routeName:
+        return MaterialPageRoute(builder: (_) => const RateRider());
+      case RiderDashBoard.routeName:
+        return MaterialPageRoute(builder: (_) => const RiderDashBoard());
+      case MapScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const MapScreen());
+      case InDemandScreen.routeName:
+        return MaterialPageRoute(builder: (_) => const InDemandScreen());
 
       default:
         return MaterialPageRoute(builder: (_) => const SplashScreen());

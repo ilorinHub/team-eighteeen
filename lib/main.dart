@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:egov/app_injection_container.dart';
+import 'package:egov/app_container.dart';
 import 'package:egov/core/api/utils/config.dart';
 import 'package:egov/core/services/storage/storage_service.dart';
 import 'package:egov/core/viewmodels/view_models.dart';
@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
               theme: sl<ThemeProvider>().theme(),
+              debugShowCheckedModeBanner: false,
               home: const SplashScreen(),
               onGenerateRoute: (settings) {
                 return AppRoute.routes(settings, context);

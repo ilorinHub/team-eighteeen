@@ -36,9 +36,7 @@ class _RiderDashBoardDrawerState extends State<RiderDashBoardDrawer> {
             themeProvider: themeProvider,
             onTap: () => Navigator.pop(context),
           ),
-          const HSpace(
-            24,
-          ),
+          const HSpace(24),
           EGovDrawerOptions(
             title: "Dashboard",
             icon: const Icon(Icons.dashboard),
@@ -49,9 +47,7 @@ class _RiderDashBoardDrawerState extends State<RiderDashBoardDrawer> {
               );
             },
           ),
-          const HSpace(
-            24,
-          ),
+          const HSpace(24),
           EGovDrawerOptions(
             title: "My Profile",
             icon: const Icon(Icons.person),
@@ -60,9 +56,7 @@ class _RiderDashBoardDrawerState extends State<RiderDashBoardDrawer> {
               Navigator.popAndPushNamed(context, ProfileScreen.routeName);
             },
           ),
-          const HSpace(
-            24,
-          ),
+          const HSpace(24),
           EGovDrawerOptions(
             title: "Orders",
             icon: const Icon(Icons.offline_bolt),
@@ -72,12 +66,7 @@ class _RiderDashBoardDrawerState extends State<RiderDashBoardDrawer> {
                   .popAndPushNamed(DriverOrdersScreen.routeName);
             },
           ),
-          const HSpace(
-            24,
-          ),
-          const HSpace(
-            24,
-          ),
+          const HSpace(24),
           EGovDrawerOptions(
             title: "Customer Feedback",
             icon: const Icon(Icons.feedback),
@@ -88,12 +77,7 @@ class _RiderDashBoardDrawerState extends State<RiderDashBoardDrawer> {
               );
             },
           ),
-          const HSpace(
-            24,
-          ),
-          const HSpace(
-            24,
-          ),
+          const Spacer(),
           EGovDrawerOptions(
             title: "Sign Out",
             onTap: () async {},
@@ -115,6 +99,7 @@ class _RiderDashBoardDrawerState extends State<RiderDashBoardDrawer> {
             //   });
             // },
           ),
+          const HSpace(24),
         ],
       ),
     ));
@@ -153,7 +138,7 @@ class EGovDrawerOptions extends StatelessWidget {
               title!,
               style: GoogleFonts.poppins(
                   color: themeProvider.themeMode().kPrimaryColor,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                   fontSize: textFontSize),
             ),
           ],

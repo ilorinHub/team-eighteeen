@@ -3,7 +3,7 @@ import 'package:egov/shared/utils/resources/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void showEGovBottomSheetModal({
+Future<void> showEGovBottomSheetModal({
   required BuildContext context,
   required Widget child,
   required Size size,

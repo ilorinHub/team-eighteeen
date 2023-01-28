@@ -1,4 +1,4 @@
-import 'package:egov/app_injection_container.dart';
+import 'package:egov/app_container.dart';
 
 enum Environment { dev, qa, prod }
 

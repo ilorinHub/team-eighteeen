@@ -25,7 +25,7 @@ class _ShareFundsState extends State<ShareFunds> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
       body: Form(
         key: _formKey,
@@ -34,7 +34,7 @@ class _ShareFundsState extends State<ShareFunds> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Withdraw',
+              Text('Share Funds',
                   style: themeProvider.textTheme().headline1?.copyWith(
                         color: themeProvider.isLightTheme
                             ? primaryColorDeep

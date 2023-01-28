@@ -1,3 +1,4 @@
+import 'package:egov/core/viewmodels/dashboard/rider_dashboard_viewmodel.dart';
 import 'package:egov/core/viewmodels/map_view_model/map_view_model.dart';
 import 'package:egov/core/viewmodels/state_provider/state_provider.dart';
 import 'package:egov/core/viewmodels/tab/tab_view_model.dart';
@@ -29,5 +30,8 @@ final providers = <SingleChildWidget>[
   ),
   ChangeNotifierProvider<ThemeProvider>(
     create: (_) => GetIt.I<ThemeProvider>(),
+  ),
+  ChangeNotifierProvider<RiderDashboardViewmodel>(
+    create: (_) => GetIt.I<RiderDashboardViewmodel>(),
   ),
 ];
