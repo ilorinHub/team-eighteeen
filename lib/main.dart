@@ -8,7 +8,9 @@ import 'package:egov/screens/auth/ui/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import 'shared/utils/resources/routes.dart';
 
@@ -25,9 +27,11 @@ import 'shared/utils/resources/routes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppConfig.initDependencies();
-  runApp(MultiProvider(providers: [
-    ...providers,
-  ], child: const MyApp()));
+  runApp(ProviderScope(
+    child: MultiProvider(providers: [
+      ...providers,
+    ], child: const MyApp()),
+  ));
 }
 
 class MyApp extends StatelessWidget {
