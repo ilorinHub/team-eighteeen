@@ -1,7 +1,7 @@
 import 'package:egov/screens/dashboard/ui/dasboard.dart';
+import 'package:egov/screens/journeyplanning/plan_journey_view.dart';
 import 'package:egov/screens/notifications/ui/notifications.dart';
 import 'package:egov/screens/profile/ui/profile.dart';
-import 'package:egov/screens/search/ui/search.dart';
 import 'package:flutter/material.dart';
 
 class TabViewModel extends ChangeNotifier {
@@ -26,7 +26,7 @@ class TabViewModel extends ChangeNotifier {
 
         break;
       case CurrentTab.search:
-        widgetToDisplay = const SearchScreen();
+        widgetToDisplay = const PlanJourneyView();
 
         break;
       case CurrentTab.notifications:

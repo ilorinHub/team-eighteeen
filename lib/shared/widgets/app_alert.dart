@@ -68,7 +68,7 @@ class AppAlert {
       builder: (_, controller) {
         return Flash(
           controller: controller,
-          backgroundColor: primaryColor,
+          backgroundColor: colorSkyBlue,
           brightness: Brightness.light,
           barrierDismissible: true,
           behavior: FlashBehavior.floating,

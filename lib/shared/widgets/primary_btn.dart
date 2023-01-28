@@ -84,7 +84,7 @@ class EGOvButton extends StatelessWidget {
                       style: GoogleFonts.inter(
                         color: !secondaryButton!
                             ? textColor ?? Colors.white
-                            : themeProvider.themeMode().ktoggleButtonColor,
+                            : themeProvider.themeMode().ktextColor,
                         fontSize: textFontSize,
                         fontWeight: FontWeight.w600,
                       ),

@@ -3,56 +3,71 @@ import 'dart:async';
 import 'package:egov/core/models/geocoding/geo.dart';
 import 'package:egov/core/services/map/geolocating_methods.dart';
 import 'package:egov/screens/bookride/ride_book_progress_view.dart';
+import 'package:egov/shared/utils/resources/colors.dart';
+import 'package:egov/shared/utils/resources/dimension.dart';
+import 'package:egov/shared/utils/resources/strings.dart';
+import 'package:egov/shared/widgets/primary_btn.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 
 class BookRideView extends ConsumerWidget {
+  static const String routeName = '/book_review';
   BookRideView({super.key});
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   final Set<Marker> _markersSet = {};
-  var firstLocation = const LatLng(8.476743732549302, 4.56834457160564);
-  var secondLocation = const LatLng(8.470959396000517, 4.564097819344169);
-  var third = const LatLng(8.480531112683396, 4.550279078988629);
-  var fourth = const LatLng(8.482610966365126, 4.551824031257188);
-  var fifth = const LatLng(8.479788305038483, 4.558025298578856);
-  var sixth = const LatLng(8.475385441297309, 4.566134431554785);
-  var seven = const LatLng(8.474535747865858, 4.56706970858443);
-  var eigth = const LatLng(8.472519520986708, 4.569000898920136);
-  var nine = const LatLng(8.480584365065416, 4.567584692673957);
-  var ten = const LatLng(8.47413250333565, 4.561125933884566);
-  var eleven = const LatLng(8.475236118939602, 4.556469619408492);
-  var twelve = const LatLng(8.480584365065416, 4.560374915420683);
-  var thirtheen = const LatLng(8.48003256533672, 4.56443041512565);
-  var fourteen = const LatLng(8.481082911665922, 4.55549329347205);
-  var fi15 = const LatLng(8.48333254559365, 4.558003840908459);
-  var i16 = const LatLng(8.48333254559365, 4.552575050298106);
-  var i17 = const LatLng(8.483077870715912, 4.5661362979887885);
-  var i18 = const LatLng(8.482504851623665, 4.570148882352963);
-  var i19 = const LatLng(8.484754477224547, 4.5665010783855315);
-  var i20 = const LatLng(8.472572384939681, 4.566265044011169);
+  final firstLocation = const LatLng(8.476743732549302, 4.56834457160564);
+  final secondLocation = const LatLng(8.470959396000517, 4.564097819344169);
+  final third = const LatLng(8.480531112683396, 4.550279078988629);
+  final fourth = const LatLng(8.482610966365126, 4.551824031257188);
+  final fifth = const LatLng(8.479788305038483, 4.558025298578856);
+  final sixth = const LatLng(8.475385441297309, 4.566134431554785);
+  final seven = const LatLng(8.474535747865858, 4.56706970858443);
+  final eigth = const LatLng(8.472519520986708, 4.569000898920136);
+  final nine = const LatLng(8.480584365065416, 4.567584692673957);
+  final ten = const LatLng(8.47413250333565, 4.561125933884566);
+  final eleven = const LatLng(8.475236118939602, 4.556469619408492);
+  final twelve = const LatLng(8.480584365065416, 4.560374915420683);
+  final thirtheen = const LatLng(8.48003256533672, 4.56443041512565);
+  final fourteen = const LatLng(8.481082911665922, 4.55549329347205);
+  final fi15 = const LatLng(8.48333254559365, 4.558003840908459);
+  final i16 = const LatLng(8.48333254559365, 4.552575050298106);
+  final i17 = const LatLng(8.483077870715912, 4.5661362979887885);
+  final i18 = const LatLng(8.482504851623665, 4.570148882352963);
+  final i19 = const LatLng(8.484754477224547, 4.5665010783855315);
+  final i20 = const LatLng(8.472572384939681, 4.566265044011169);
   final List<double> longitudes = [];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Column(
           children: [
-            DropdownButton(
-                value: ref.watch(selectedLocation),
-                items: _Locations.values
-                    .map((e) => DropdownMenuItem(
-                        value: e, child: Text(describeEnum(e))))
-                    .toList(),
-                onChanged: (selectedlocation) {
-                  ref.watch(selectedLocation.notifier).state =
-                      selectedlocation!;
-                }),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: DropdownButton(
+                  value: ref.watch(selectedLocation),
+                  isExpanded: true,
+                  items: _Locations.values
+                      .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(
+                            describeEnum(e),
+                            style: TextStyle(fontSize: textFontSize),
+                          )))
+                      .toList(),
+                  onChanged: (selectedlocation) {
+                    ref.watch(selectedLocation.notifier).state =
+                        selectedlocation!;
+                  }),
+            ),
             ref.watch(selectedLocation) == _Locations.search
                 ? SearchGooglePlacesWidget(
                     placeholder: 'Enter pickup point',
@@ -74,6 +89,7 @@ class BookRideView extends ConsumerWidget {
                     onSearch: (Place place) {},
                   )
                 : Container(),
+            HSpace(20..h),
             SearchGooglePlacesWidget(
               placeholder: 'Enter destination',
               apiKey: 'AIzaSyAor7DamjJerzkBJnD7vtbrmSOFQm3DKAA',
@@ -114,16 +130,20 @@ class BookRideView extends ConsumerWidget {
               },
               onSearch: (Place place) {},
             ),
-            RadioGroup<_TransportationTypes>.builder(
+            RadioGroup<TransportationTypes>.builder(
               direction: Axis.horizontal,
               groupValue: ref.watch(selectedTransport),
+              activeColor: primaryColor,
               onChanged: (value) =>
                   ref.watch(selectedTransport.notifier).state = value!,
-              items: _TransportationTypes.values,
+              items: TransportationTypes.values,
+              horizontalAlignment: MainAxisAlignment.center,
+              textStyle: TextStyle(fontSize: textFontSize * 0.9),
               itemBuilder: (item) => RadioButtonBuilder(
                 describeEnum(item),
               ),
             ),
+            HSpace(20..h),
             SizedBox(
               height: 400,
               width: 400,
@@ -138,15 +158,22 @@ class BookRideView extends ConsumerWidget {
                     _controller.complete(controller)),
               ),
             ),
-            Text('\$ ${ref.watch(pricesUpdater)}'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RideBookingProgress()));
-              },
-              child: const Text('Proceed'),
+            HSpace(20..h),
+            Text('$naira${ref.watch(pricesUpdater)}'),
+            HSpace(20..h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+              child: EGOvButton(
+                hasIcon: false,
+                loading: false,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RideBookingProgress()));
+                },
+                text: 'Proceed',
+              ),
             )
           ],
         ),
@@ -260,9 +287,9 @@ class BookRideView extends ConsumerWidget {
     return polylineSet;
   }
 
-  getMarkers(_TransportationTypes selected) {
+  getMarkers(TransportationTypes selected) {
     switch (selected) {
-      case _TransportationTypes.bike:
+      case TransportationTypes.bike:
         return {
           Marker(
             markerId: const MarkerId('first'),
@@ -286,7 +313,7 @@ class BookRideView extends ConsumerWidget {
             position: fifth,
           ),
         };
-      case _TransportationTypes.bus:
+      case TransportationTypes.bus:
         return {
           Marker(
             markerId: const MarkerId('sixth'),
@@ -310,7 +337,7 @@ class BookRideView extends ConsumerWidget {
             position: ten,
           ),
         };
-      case _TransportationTypes.tricycle:
+      case TransportationTypes.tricycle:
         return {
           Marker(
             markerId: const MarkerId('11'),
@@ -334,7 +361,7 @@ class BookRideView extends ConsumerWidget {
           ),
           Marker(markerId: const MarkerId('15'), position: fi15),
         };
-      case _TransportationTypes.taxi:
+      case TransportationTypes.taxi:
         return {
           Marker(
             markerId: const MarkerId('16'),
@@ -373,21 +400,21 @@ final updateMarkers = StateNotifierProvider<MarkersList, List<Marker>>((ref) {
 final selectedLocation = StateProvider((ref) => _Locations.currentLocation);
 final startDestination = StateProvider((ref) => const LatLng(0, 0));
 final polylines = StateProvider((ref) => <Polyline>{});
-final selectedTransport = StateProvider((ref) => _TransportationTypes.taxi);
+final selectedTransport = StateProvider((ref) => TransportationTypes.taxi);
 final pricesUpdater = StateProvider((ref) {
   switch (ref.watch(selectedTransport)) {
-    case _TransportationTypes.bus:
+    case TransportationTypes.bus:
       return '500';
-    case _TransportationTypes.tricycle:
+    case TransportationTypes.tricycle:
       return '100';
-    case _TransportationTypes.taxi:
+    case TransportationTypes.taxi:
       return '1000';
-    case _TransportationTypes.bike:
+    case TransportationTypes.bike:
       return '250';
   }
 });
 
-enum _TransportationTypes { bus, tricycle, taxi, bike }
+enum TransportationTypes { bus, tricycle, taxi, bike }
 
 class MarkersList extends StateNotifier<List<Marker>> {
   MarkersList() : super([]);

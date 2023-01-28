@@ -35,7 +35,8 @@ Future<void> showEGovBottomSheetModal({
             width: double.infinity,
             child: Container(
               decoration: BoxDecoration(
-                  color: themeProvider.themeMode().kBottomModalSheetColor,
+                  color:
+                      themeProvider.isLightTheme ? Colors.white : primaryColor,
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20))),
@@ -65,7 +66,7 @@ Future<void> showEGovBottomSheetModal({
       ),
     ),
     isScrollControlled: true,
-    barrierColor: barrierColor ?? Colors.transparent,
+    barrierColor: barrierColor ?? textColor.withOpacity(0.3),
     enableDrag: true,
   );
 }

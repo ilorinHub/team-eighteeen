@@ -65,7 +65,8 @@ class TextFieldWidget extends StatelessWidget {
           vertical: (smallVerticalPadding),
         ),
         filled: true,
-        fillColor: themeProvider.themeMode().kcolorTextField,
+        fillColor:
+            themeProvider.isLightTheme ? Colors.grey.shade200 : Colors.black26,
         hintText: hintText,
         hintStyle: themeProvider.textTheme().bodyText2,
         border: OutlineInputBorder(
@@ -126,7 +127,7 @@ class TextFieldWidget extends StatelessWidget {
                       height: (padding),
                       child: SvgPicture.asset(
                         suffixImage ?? '',
-                        color: themeProvider.themeMode().kycCardTextColor,
+                        color: themeProvider.themeMode().kColorWhite,
                       ),
                     ),
                   ),
@@ -165,7 +166,7 @@ class MultiLineTextFieldWidget extends StatelessWidget {
           vertical: (smallVerticalPadding),
         ),
         filled: true,
-        fillColor: themeProvider.themeMode().kcolorTextField,
+        fillColor: themeProvider.themeMode().kColorWhite,
         hintText: hintText,
         hintStyle: themeProvider.textTheme().bodyText2,
         border: OutlineInputBorder(

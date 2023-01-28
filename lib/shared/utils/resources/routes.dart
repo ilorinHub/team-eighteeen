@@ -4,6 +4,7 @@ import 'package:egov/screens/auth/ui/forgot_password_screen.dart';
 import 'package:egov/screens/auth/ui/login_screen.dart';
 import 'package:egov/screens/auth/ui/reset_password_screen.dart';
 import 'package:egov/screens/auth/ui/signup_screen.dart';
+import 'package:egov/screens/bookride/ride_book_view.dart';
 import 'package:egov/screens/dashboard/ui/dasboard.dart';
 import 'package:egov/screens/dashboard/ui/in_demand_routes.dart';
 import 'package:egov/screens/dashboard/ui/map_screen.dart';
@@ -16,6 +17,8 @@ import 'package:egov/screens/payment/ui/payment_history.dart';
 import 'package:egov/screens/payment/ui/share.dart';
 import 'package:egov/screens/payment/ui/withdraw.dart';
 import 'package:egov/screens/profile/ui/profile.dart';
+import 'package:egov/screens/profile/ui/ride_history.dart';
+import 'package:egov/screens/ridesharing/share_ride_view.dart';
 import 'package:egov/screens/search/ui/search.dart';
 import 'package:egov/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +71,12 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const MapScreen());
       case InDemandScreen.routeName:
         return MaterialPageRoute(builder: (_) => const InDemandScreen());
+      case BookRideView.routeName:
+        return MaterialPageRoute(builder: (_) => BookRideView());
+      case RideHistory.routeName:
+        return MaterialPageRoute(builder: (_) => const RideHistory());
+      case ShareRideView.routeName:
+        return MaterialPageRoute(builder: (_) => const ShareRideView());
 
       default:
         return MaterialPageRoute(builder: (_) => const SplashScreen());

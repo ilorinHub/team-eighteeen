@@ -1,6 +1,8 @@
 import 'package:egov/app_container.dart';
 import 'package:egov/core/services/storage/storage_service.dart';
 import 'package:egov/core/viewmodels/view_models.dart';
+import 'package:egov/screens/payment/ui/payment_history.dart';
+import 'package:egov/screens/profile/ui/ride_history.dart';
 import 'package:egov/shared/utils/resources/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,11 +45,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: const [
                     CircleAvatar(
                       radius: 30,
+                      child: Icon(Icons.person),
                     ),
-                    Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    )
                   ],
                 ),
               ),
@@ -64,6 +63,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 themeProvider: themeProvider!,
                 icon: Icons.history,
                 title: 'Ride History',
+                onTap: () {
+                  Navigator.pushNamed(context, RideHistory.routeName);
+                },
               ),
               ProfileItem(
                 themeProvider: themeProvider!,
@@ -74,16 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 themeProvider: themeProvider!,
                 icon: Icons.history_outlined,
                 title: 'Payment History',
+                onTap: () {
+                  Navigator.pushNamed(context, PaymentHistory.routeName);
+                },
               ),
               ProfileItem(
                 themeProvider: themeProvider!,
                 icon: Icons.change_circle,
                 title: 'Change Payment Methods',
-              ),
-              ProfileItem(
-                themeProvider: themeProvider!,
-                icon: Icons.security,
-                title: 'Payment History',
               ),
               ProfileItem(
                 themeProvider: themeProvider!,
@@ -125,6 +125,7 @@ class ProfileItem extends StatelessWidget {
     this.isTheme = false,
     this.value = false,
     this.onChanged,
+    this.onTap,
   }) : super(key: key);
 
   final ThemeProvider themeProvider;
@@ -132,25 +133,33 @@ class ProfileItem extends StatelessWidget {
   final IconData icon;
   final bool? isTheme, value;
   final void Function(bool)? onChanged;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: verticalPadding),
-      child: Row(
-        children: [
-          Icon(icon),
-          WSpace(horizontalPadding),
-          Text(
-            title,
-            style: themeProvider.textTheme().bodyText1?.copyWith(
-                  fontSize: (textFontSize),
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
-          const Spacer(),
-          if (isTheme!) Switch(value: value!, onChanged: onChanged)
-        ],
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: verticalPadding),
+        child: Row(
+          children: [
+            Icon(icon),
+            WSpace(horizontalPadding),
+            Text(
+              title,
+              style: themeProvider.textTheme().bodyText1?.copyWith(
+                    fontSize: (textFontSize),
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            const Spacer(),
+            if (isTheme!)
+              Switch(value: value!, onChanged: onChanged)
+            else
+              const Icon(Icons.arrow_forward_ios)
+          ],
+        ),
       ),
     );
   }

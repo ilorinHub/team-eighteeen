@@ -20,27 +20,3 @@ Color kborderColor = const Color(0xff9BA7B7);
 Color kColorRed = const Color(0xffFD6150);
 
 Color kColorBlack = const Color(0xff252A31);
-
-final linearGradient1 = LinearGradient(
-  begin: Alignment.topRight,
-  end: Alignment.bottomLeft,
-  stops: const [0.1, 0.5, 0.7, 0.9],
-  colors: [
-    primaryColor.withOpacity(0.3),
-    primaryColor.withOpacity(0.4),
-    primaryColor.withOpacity(0.6),
-    primaryColor.withOpacity(0.8),
-  ],
-);
-
-final linearGradient2 = LinearGradient(
-  begin: Alignment.topRight,
-  end: Alignment.bottomLeft,
-  stops: const [0.1, 0.5, 0.7, 0.9],
-  colors: [
-    primaryColor.withOpacity(0.3),
-    Colors.black.withOpacity(0.4),
-    primaryColor.withOpacity(0.6),
-    Colors.black.withOpacity(0.4),
-  ],
-);

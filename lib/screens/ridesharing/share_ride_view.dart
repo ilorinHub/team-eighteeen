@@ -9,68 +9,69 @@ import 'package:location/location.dart';
 import 'search_result_view.dart';
 
 class ShareRideView extends ConsumerWidget {
+  static const String routeName = '/share_ride';
   const ShareRideView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(getlocation).when(data: (data) {
       return Scaffold(
+          appBar: AppBar(),
           body: Column(
-        children: [
-          RadioGroup<SharableRides>.builder(
-            direction: Axis.horizontal,
-            groupValue: ref.watch(selectedRide),
-            onChanged: (value) =>
-                ref.watch(selectedRide.notifier).state = value!,
-            items: SharableRides.values,
-            itemBuilder: (item) => RadioButtonBuilder(
-              describeEnum(item),
-            ),
-          ),
-          ref.watch(selectedRide) == SharableRides.bus
-              ? DropdownButton(
-                  hint: const Text("Select Bus Stop"),
-                  items: BusStops.values
-                      .map((e) => DropdownMenuItem(
-                          value: e, child: Text(describeEnum(e))))
-                      .toList(),
-                  onChanged: (selected) {
-                    ref.watch(selectedBusStop.notifier).state = selected!;
-                  })
-              : SearchGooglePlacesWidget(
-                  placeholder: 'Enter pickup point',
-                  apiKey: 'AIzaSyAor7DamjJerzkBJnD7vtbrmSOFQm3DKAA',
-                  language: 'en',
-                  location: LatLng(data.latitude!, data.longitude!),
-                  radius: 3000,
-                  onSelected: (Place place) async {
-                    final geolocation = await place.geolocation;
-                  },
-                  onSearch: (Place place) {},
+            children: [
+              RadioGroup<SharableRides>.builder(
+                direction: Axis.horizontal,
+                groupValue: ref.watch(selectedRide),
+                onChanged: (value) =>
+                    ref.watch(selectedRide.notifier).state = value!,
+                items: SharableRides.values,
+                itemBuilder: (item) => RadioButtonBuilder(
+                  describeEnum(item),
                 ),
-          ref.watch(selectedRide) == SharableRides.bus
-              ? ElevatedButton(
-                  onPressed: () async {
-                    var time = await showTimePicker(
-                        context: context, initialTime: TimeOfDay.now());
-                    time != null
-                        ? ref.watch(selectedBusTime.notifier).state = time
-                        : null;
+              ),
+              ref.watch(selectedRide) == SharableRides.bus
+                  ? DropdownButton(
+                      hint: const Text("Select Bus Stop"),
+                      items: BusStops.values
+                          .map((e) => DropdownMenuItem(
+                              value: e, child: Text(describeEnum(e))))
+                          .toList(),
+                      onChanged: (selected) {
+                        ref.watch(selectedBusStop.notifier).state = selected!;
+                      })
+                  : SearchGooglePlacesWidget(
+                      placeholder: 'Enter pickup point',
+                      apiKey: 'AIzaSyAor7DamjJerzkBJnD7vtbrmSOFQm3DKAA',
+                      language: 'en',
+                      location: LatLng(data.latitude!, data.longitude!),
+                      radius: 3000,
+                      onSelected: (Place place) async {},
+                      onSearch: (Place place) {},
+                    ),
+              ref.watch(selectedRide) == SharableRides.bus
+                  ? ElevatedButton(
+                      onPressed: () async {
+                        var time = await showTimePicker(
+                            context: context, initialTime: TimeOfDay.now());
+                        time != null
+                            ? ref.watch(selectedBusTime.notifier).state = time
+                            : null;
+                      },
+                      child: const Text("Pick Time"))
+                  : Container(),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ShareRideSearchResult()));
                   },
-                  child: const Text("Pick Time"))
-              : Container(),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ShareRideSearchResult()));
-              },
-              child: const Text("Search..."))
-        ],
-      ));
+                  child: const Text("Search..."))
+            ],
+          ));
     }, error: (er, st) {
       return Container();
     }, loading: () {
-      return const CircularProgressIndicator.adaptive();
+      return const SizedBox(
+          height: 30, width: 30, child: CircularProgressIndicator.adaptive());
     });
   }
 }

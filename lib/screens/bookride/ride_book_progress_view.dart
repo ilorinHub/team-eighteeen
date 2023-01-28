@@ -1,3 +1,4 @@
+import 'package:egov/shared/utils/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,13 +17,15 @@ class RideBookingProgress extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.cancel)),
-          const CircularProgressIndicator.adaptive(),
-          const Text("Matching you to an available driver....")
+          Center(
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.cancel)),
+          ),
+          const Center(child: CircularProgressIndicator.adaptive()),
+          const Center(child: Text("Matching you to an available driver...."))
         ],
       ));
     });
@@ -43,15 +46,27 @@ class ConfirmedBookingView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        IconButton(
-            onPressed: () {
+        Center(
+          child: GestureDetector(
+            onTap: () {
               Navigator.of(context)
-                ..pop()
-                ..pop()
-                ..pop();
+                ..pop(true)
+                ..pop(true)
+                ..pop(true);
             },
-            icon: const Icon(Icons.abc)),
-        const Text("Booking Confirmed")
+            child: Container(
+                height: 100,
+                width: 100,
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: primaryColor),
+                child: const Icon(
+                  Icons.done_rounded,
+                  color: Colors.white,
+                  size: 50,
+                )),
+          ),
+        ),
+        const Center(child: Text("Booking Confirmed"))
       ],
     ));
   }

@@ -36,7 +36,7 @@ class HaveAccountText extends StatelessWidget {
             child: Text(
               login ? "Log In" : 'Sign Up',
               style: GoogleFonts.poppins(
-                  color: themeProvider.themeMode().ktoggleButtonColor,
+                  color: themeProvider.themeMode().ktextColor,
                   fontSize: (textFontSize),
                   fontWeight: FontWeight.bold),
             ),

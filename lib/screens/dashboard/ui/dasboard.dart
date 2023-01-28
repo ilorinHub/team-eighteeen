@@ -1,11 +1,16 @@
 import 'package:egov/core/viewmodels/view_models.dart';
+import 'package:egov/screens/bookride/ride_book_view.dart';
+import 'package:egov/screens/journeyplanning/plan_journey_view.dart';
 import 'package:egov/screens/payment/ui/add_new_payment.dart';
 import 'package:egov/screens/payment/ui/payment_details.dart';
 import 'package:egov/screens/payment/ui/payment_history.dart';
 import 'package:egov/screens/payment/ui/share.dart';
 import 'package:egov/screens/payment/ui/withdraw.dart';
+import 'package:egov/screens/ridesharing/share_ride_view.dart';
+import 'package:egov/shared/utils/resources/colors.dart';
 import 'package:egov/shared/utils/resources/dimension.dart';
 import 'package:egov/shared/utils/resources/strings.dart';
+import 'package:egov/shared/widgets/app_alert.dart';
 import 'package:egov/shared/widgets/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +38,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               HSpace(buttonHeight),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: _showCurrentRide
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.spaceEvenly,
                 children: [
                   WalletWidget(
                       showCurrentRide: _showCurrentRide,
@@ -96,64 +103,64 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   DashboardButton(
                       size: size,
                       themeProvider: themeProvider,
-                      title: 'Book A Ride',
+                      title: 'Book A\nRide',
                       icon: Icons.swap_horiz,
                       onTap: () {
                         showEGovBottomSheetModal(
-                                context: context,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Select Ride Option',
-                                      style: themeProvider
-                                          .textTheme()
-                                          .headline2
-                                          ?.copyWith(
-                                            color: themeProvider
-                                                .themeMode()
-                                                .ktextColor,
-                                          ),
-                                    ),
-                                    HSpace(buttonHeight),
-                                    ChooseRideType(
-                                      themeProvider: themeProvider,
-                                      icon: Icons.emoji_people,
-                                      title: 'Single',
-                                      onTap: () {
-                                        value.userRideType = RideType.single;
-                                        // Navigator.pushNamed(
-                                        //     context, BookRideView.routeName);
-                                      },
-                                    ),
-                                    HSpace(smallVerticalPadding),
-                                    const Divider(),
-                                    HSpace(smallVerticalPadding),
-                                    ChooseRideType(
-                                      themeProvider: themeProvider,
-                                      icon: Icons.people_sharp,
-                                      title: 'Shared',
-                                      onTap: () {
-                                        value.userRideType = RideType.shared;
-                                        // Navigator.pushNamed(
-                                        //     context, BookRideView.routeName);
-                                      },
-                                    ),
-                                  ],
+                            context: context,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Select Ride Option',
+                                  style: themeProvider
+                                      .textTheme()
+                                      .headline2
+                                      ?.copyWith(
+                                        color: themeProvider
+                                            .themeMode()
+                                            .ktextColor,
+                                      ),
                                 ),
-                                size: size,
-                                themeProvider: themeProvider)
-                            .then((value) {
-                          setState(() {
-                            _showCurrentRide = true;
-                          });
-                        });
+                                HSpace(buttonHeight),
+                                ChooseRideType(
+                                  themeProvider: themeProvider,
+                                  icon: Icons.emoji_people,
+                                  title: 'Single',
+                                  onTap: () {
+                                    value.userRideType = RideType.single;
+                                    Navigator.pushNamed(
+                                        context, BookRideView.routeName);
+                                    _showCurrentRide = true;
+                                  },
+                                ),
+                                HSpace(smallVerticalPadding),
+                                const Divider(),
+                                HSpace(smallVerticalPadding),
+                                ChooseRideType(
+                                  themeProvider: themeProvider,
+                                  icon: Icons.people_sharp,
+                                  title: 'Shared',
+                                  onTap: () {
+                                    value.userRideType = RideType.shared;
+                                    Navigator.pushNamed(
+                                        context, ShareRideView.routeName);
+                                  },
+                                ),
+                              ],
+                            ),
+                            size: size,
+                            themeProvider: themeProvider);
                       }),
                   DashboardButton(
                     size: size,
                     themeProvider: themeProvider,
                     title: 'Emergency Request',
                     icon: Icons.bike_scooter,
-                    onTap: () {},
+                    onTap: () {
+                      AppAlert.showSuccessMessage(
+                          context: context,
+                          message: 'Request Submitted Successfully');
+                    },
                   ),
                 ],
               ),
@@ -161,7 +168,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               PlanAJourneyWidget(
                 size: size,
                 themeProvider: themeProvider,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PlanJourneyView()));
+                },
               ),
               HSpace(padding * 1.5),
             ],
@@ -195,17 +207,16 @@ class CurrentRide extends StatelessWidget {
             horizontal: smallHorizontalPadding, vertical: smallVerticalPadding),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(buttonBorderRadius * 2),
-            gradient: LinearGradient(begin: Alignment.topLeft, stops: const [
-              0.3,
-              0.5,
-              0.8,
-              1
-            ], colors: [
-              themeProvider.themeMode().kPrimaryColor!.withOpacity(0.3),
-              themeProvider.themeMode().kPrimaryColor!.withOpacity(0.7),
-              themeProvider.themeMode().kPrimaryColor!.withOpacity(0.5),
-              themeProvider.themeMode().kPrimaryColor!.withOpacity(0.7),
-            ])),
+            color: dividerColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.7),
+                blurRadius: 0.5,
+                offset: const Offset(1, 1),
+                spreadRadius: 1,
+              ),
+              const BoxShadow()
+            ]),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,18 +242,18 @@ class CurrentRide extends StatelessWidget {
               ],
             ),
             Text(
-              'origin:Agbabiaka',
+              'Origin: Agbabiaka',
               style: themeProvider.textTheme().bodyText1,
             ),
             Text(
-              'destination: Unity',
+              'Destination: Unity',
               style: themeProvider.textTheme().bodyText2,
             ),
             Row(
               children: [
                 Icon(
                   Icons.person,
-                  color: themeProvider.themeMode().kDarkGreen,
+                  color: themeProvider.themeMode().kPrimaryColorDeep,
                   size: horizontalPadding,
                 ),
                 WSpace(smallHorizontalPadding),
@@ -282,25 +293,25 @@ class WalletWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: _showCurrentRide ? size.width * 0.44 : size.width * 0.89,
+      width: _showCurrentRide ? size.width * 0.44 : size.width * 0.9,
       height: size.height * 0.23,
       padding: EdgeInsets.symmetric(
           horizontal:
               _showCurrentRide ? smallHorizontalPadding : horizontalPadding,
-          vertical: smallVerticalPadding),
+          vertical: verticalPadding * 1.5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(buttonBorderRadius * 2),
-          gradient: LinearGradient(begin: Alignment.topLeft, stops: const [
-            0.3,
-            0.5,
-            0.8,
-            1
-          ], colors: [
-            themeProvider.themeMode().kPrimaryColor!.withOpacity(0.3),
-            themeProvider.themeMode().kPrimaryColor!.withOpacity(0.7),
-            themeProvider.themeMode().kPrimaryColor!.withOpacity(0.5),
-            themeProvider.themeMode().kPrimaryColor!.withOpacity(0.7),
-          ])),
+        borderRadius: BorderRadius.circular(buttonBorderRadius * 2),
+        color: dividerColor,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.7),
+            blurRadius: 0.5,
+            offset: const Offset(1, 1),
+            spreadRadius: 1,
+          ),
+          const BoxShadow()
+        ],
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,7 +344,7 @@ class WalletWidget extends StatelessWidget {
             children: [
               Icon(
                 Icons.arrow_upward,
-                color: themeProvider.themeMode().kDarkGreen,
+                color: themeProvider.themeMode().kPrimaryColorDeep,
                 size: horizontalPadding,
               ),
               WSpace(smallHorizontalPadding),
@@ -341,13 +352,13 @@ class WalletWidget extends StatelessWidget {
                   style: themeProvider
                       .textTheme()
                       .bodyText1
-                      ?.copyWith(fontSize: textFontSize * 0.7)),
+                      ?.copyWith(fontSize: textFontSize)),
               WSpace(smallHorizontalPadding),
               Text('(${naira}980)',
                   style: themeProvider
                       .textTheme()
                       .bodyText1
-                      ?.copyWith(fontSize: textFontSize * 0.7)),
+                      ?.copyWith(fontSize: textFontSize)),
             ],
           ),
         ],
@@ -381,7 +392,8 @@ class ChooseRideType extends StatelessWidget {
               decoration: BoxDecoration(
                   color: themeProvider.themeMode().kPrimaryColorLight,
                   shape: BoxShape.circle),
-              child: Icon(icon, color: themeProvider.themeMode().kColorBlue)),
+              child: Icon(icon,
+                  color: themeProvider.themeMode().kPrimaryColorDeep)),
           WSpace(padding),
           Text(
             title,
@@ -435,15 +447,16 @@ class PlanAJourneyWidget extends StatelessWidget {
                   HSpace(padding),
                   Text(
                     'Plan A Journey',
-                    style: themeProvider.textTheme().headline2?.copyWith(
-                          color: themeProvider.themeMode().kQwikColor,
-                        ),
+                    style: themeProvider
+                        .textTheme()
+                        .headline2
+                        ?.copyWith(color: themeProvider.themeMode().ktextColor),
                   ),
                   HSpace(smallVerticalPadding),
                   Text(
                     'Easily plan your journey to suit your daily transport needs',
                     style: themeProvider.textTheme().bodyText1?.copyWith(
-                          color: themeProvider.themeMode().kColorBlue,
+                          color: themeProvider.themeMode().kPrimaryColorDeep,
                         ),
                   ),
                 ],
@@ -497,19 +510,13 @@ class DashboardButton extends StatelessWidget {
         width: size.width * 0.43,
         height: size.height * 0.23,
         decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topLeft, stops: const [
-            0.5,
-            1
-          ], colors: [
-            themeProvider.themeMode().kPrimaryColor!.withOpacity(0.2),
-            themeProvider.themeMode().kPrimaryColor!.withOpacity(0.4),
-          ]),
+          color: Colors.grey.withOpacity(0.4),
           borderRadius: BorderRadius.circular(padding * 1.4),
         ),
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
@@ -527,7 +534,7 @@ class DashboardButton extends StatelessWidget {
                 title,
                 textAlign: TextAlign.center,
                 style: themeProvider.textTheme().headline2?.copyWith(
-                      color: themeProvider.themeMode().kQwikColor,
+                      color: themeProvider.themeMode().ktextColor,
                     ),
               ),
             )

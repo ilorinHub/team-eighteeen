@@ -1,5 +1,6 @@
 import 'package:egov/screens/bookride/ride_book_view.dart';
 import 'package:egov/screens/journeyplanning/journey_result.dart';
+import 'package:egov/shared/utils/resources/resources.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,21 +14,29 @@ class PlanJourneyView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Scaffold(
-            body: Column(children: [
-          const Text("Plan a trip"),
-          DropdownButton(
-              value: ref.watch(selectedLocation),
-              items: _Locations.values
-                  .map((e) =>
-                      DropdownMenuItem(value: e, child: Text(describeEnum(e))))
-                  .toList(),
-              onChanged: (selectedlocation) async {
-                ref.watch(selectedLocation.notifier).state = selectedlocation!;
-              }),
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Plan a trip"),
+        ),
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: DropdownButton(
+                isExpanded: true,
+                value: ref.watch(selectedLocation),
+                items: _Locations.values
+                    .map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(
+                          describeEnum(e),
+                          style: TextStyle(fontSize: textFontSize),
+                        )))
+                    .toList(),
+                onChanged: (selectedlocation) async {
+                  ref.watch(selectedLocation.notifier).state =
+                      selectedlocation!;
+                }),
+          ),
           ref.watch(selectedLocation) == _Locations.search
               ? SearchGooglePlacesWidget(
                   placeholder: 'Enter starting point',
@@ -36,11 +45,7 @@ class PlanJourneyView extends ConsumerWidget {
                   onSelected: (Place place) async {
                     final geolocation = await place.geolocation;
                     final latlng = geolocation!.coordinates as LatLng;
-                    // final GoogleMapController controller = await _controller.future;
-                    // controller.animateCamera(
-                    //     CameraUpdate.newLatLng(geolocation.coordinates));
-                    // controller.animateCamera(
-                    //     CameraUpdate.newLatLngBounds(geolocation.bounds, 0));
+
                     ref.watch(startDestination.notifier).state = latlng;
                   },
                   onSearch: (Place place) {},
@@ -59,6 +64,8 @@ class PlanJourneyView extends ConsumerWidget {
           ),
           RadioGroup<RouteOptions>.builder(
             direction: Axis.horizontal,
+            horizontalAlignment: MainAxisAlignment.start,
+            activeColor: primaryColor,
             groupValue: ref.watch(selectedOptimization),
             onChanged: (value) =>
                 ref.watch(selectedOptimization.notifier).state = value!,
@@ -84,9 +91,7 @@ class PlanJourneyView extends ConsumerWidget {
                 }));
               },
               child: const Text("Calculate"))
-        ])),
-      ),
-    );
+        ]));
   }
 
   Future<LatLng> getCurrentLocation() async {

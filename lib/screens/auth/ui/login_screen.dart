@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:egov/core/models/auth/requests/login_request.dart';
 import 'package:egov/core/viewmodels/view_models.dart';
 import 'package:egov/screens/auth/ui/forgot_password_screen.dart';
-import 'package:egov/screens/dashboard/ui/rider_dashboard.dart';
 import 'package:egov/shared/utils/resources/resources.dart';
+import 'package:egov/shared/widgets/bottom_nav.dart';
 import 'package:egov/shared/widgets/have_account_text.dart';
 import 'package:egov/shared/widgets/primary_btn.dart';
 import 'package:egov/shared/widgets/text_field.dart';
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value) {
                             log('Login success');
                             Navigator.pushReplacementNamed(
-                                context, RiderDashBoard.routeName);
+                                context, BottomNavigationScreen.routeName);
                           } else {
                             log('Login failed');
                             log(viewmodel.message);
