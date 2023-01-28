@@ -25,10 +25,10 @@ double smallVerticalPadding = 10..sp;
 double smallHorizontalPadding = 10..sp;
 
 //horizontal padding
-double horizontalPadding = 16..sp;
+double horizontalPadding = 20..sp;
 
 // vertical padding big screen
-double verticalPadding = 16..sp;
+double verticalPadding = 20..sp;
 
 //button heights
 double buttonHeight = 50..sp;

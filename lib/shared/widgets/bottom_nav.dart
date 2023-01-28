@@ -50,6 +50,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 splashColor: themeProvider.themeMode().kColorBlack,
                 onTap: () {
                   value.currentTab = CurrentTab.search;
+                  value.setCurrentTab();
                 },
                 child: _SelectedBottomNavItem(
                   iconData: Icons.search,
@@ -63,6 +64,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 splashColor: themeProvider.themeMode().kColorBlack,
                 onTap: () {
                   value.currentTab = CurrentTab.notifications;
+                  value.setCurrentTab();
                 },
                 child: _SelectedBottomNavItem(
                   iconData: Icons.notification_add,
@@ -76,6 +78,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 splashColor: themeProvider.themeMode().kColorBlack,
                 onTap: () {
                   value.currentTab = CurrentTab.profile;
+                  value.setCurrentTab();
                 },
                 child: _SelectedBottomNavItem(
                   iconData: Icons.person,

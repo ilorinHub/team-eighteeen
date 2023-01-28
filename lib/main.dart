@@ -15,8 +15,6 @@ import 'shared/utils/resources/routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await StorageService.initStorageService();
-  // StorageService().getThemeValue();
   await AppConfig.initDependencies();
   runApp(MultiProvider(providers: [
     ...providers,

@@ -6,6 +6,11 @@ import 'package:egov/screens/auth/ui/reset_password_screen.dart';
 import 'package:egov/screens/auth/ui/signup_screen.dart';
 import 'package:egov/screens/dashboard/ui/dasboard.dart';
 import 'package:egov/screens/notifications/ui/notifications.dart';
+import 'package:egov/screens/payment/ui/add_new_payment.dart';
+import 'package:egov/screens/payment/ui/payment_details.dart';
+import 'package:egov/screens/payment/ui/payment_history.dart';
+import 'package:egov/screens/payment/ui/share.dart';
+import 'package:egov/screens/payment/ui/withdraw.dart';
 import 'package:egov/screens/profile/ui/profile.dart';
 import 'package:egov/screens/search/ui/search.dart';
 import 'package:egov/shared/widgets/bottom_nav.dart';
@@ -41,6 +46,16 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const NotificationsScreen());
       case ProfileScreen.routeName:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case AddNewCard.routeName:
+        return MaterialPageRoute(builder: (_) => const AddNewCard());
+      case PaymentDetails.routeName:
+        return MaterialPageRoute(builder: (_) => const PaymentDetails());
+      case PaymentHistory.routeName:
+        return MaterialPageRoute(builder: (_) => const PaymentHistory());
+      case WithdrawFunds.routeName:
+        return MaterialPageRoute(builder: (_) => const WithdrawFunds());
+      case ShareFunds.routeName:
+        return MaterialPageRoute(builder: (_) => const ShareFunds());
 
       default:
         return MaterialPageRoute(builder: (_) => const SplashScreen());

@@ -35,7 +35,6 @@ class ThemeProvider with ChangeNotifier {
       focusColor: themeMode().kcolorDashboard,
       textTheme: textTheme(),
       tabBarTheme: tabBarTheme(),
-      inputDecorationTheme: inputDecorationTheme(),
       dividerTheme: const DividerThemeData(
         color: Colors.grey,
       ),
@@ -49,36 +48,6 @@ class ThemeProvider with ChangeNotifier {
         cursorColor: kColorMagenta,
       ),
       indicatorColor: kColorMagenta,
-    );
-  }
-
-  InputDecorationTheme inputDecorationTheme() {
-    OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(
-        (textFieldBorderRadius),
-      ),
-      borderSide: BorderSide(
-        color: themeMode().kbackDropColor!.withOpacity(0.5),
-      ),
-      gapPadding: 5,
-    );
-    OutlineInputBorder focusedInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(
-        (textFieldBorderRadius),
-      ),
-      borderSide: BorderSide(
-        color: themeMode().kPrimaryColor!,
-      ),
-    );
-    return InputDecorationTheme(
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: (horizontalPadding),
-        vertical: (textFieldBorderRadius) * 0.4,
-      ),
-      enabledBorder: outlineInputBorder,
-      focusedBorder: focusedInputBorder,
-      border: outlineInputBorder,
-      labelStyle: textTheme().bodyText2,
     );
   }
 

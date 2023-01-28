@@ -69,32 +69,32 @@ class TextFieldWidget extends StatelessWidget {
         hintText: hintText,
         hintStyle: themeProvider.textTheme().bodyText2,
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-                borderRadius ?? (textFieldBorderRadius) / 2),
+            borderRadius:
+                BorderRadius.circular(borderRadius ?? (textFieldBorderRadius)),
             borderSide: BorderSide.none),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-              borderRadius ?? (textFieldBorderRadius) / 2),
+          borderRadius:
+              BorderRadius.circular(borderRadius ?? (textFieldBorderRadius)),
           borderSide: BorderSide(
             color: primaryColor,
           ),
         ),
         disabledBorder: InputBorder.none,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-              borderRadius ?? (textFieldBorderRadius) / 2),
+          borderRadius:
+              BorderRadius.circular(borderRadius ?? (textFieldBorderRadius)),
           borderSide: BorderSide.none,
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-              borderRadius ?? (textFieldBorderRadius) / 2),
+          borderRadius:
+              BorderRadius.circular(borderRadius ?? (textFieldBorderRadius)),
           borderSide: BorderSide(
             color: Colors.red.withOpacity(0.4),
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-              borderRadius ?? (textFieldBorderRadius) / 2),
+          borderRadius:
+              BorderRadius.circular(borderRadius ?? (textFieldBorderRadius)),
           borderSide: BorderSide(
             color: Colors.red.withOpacity(0.4),
           ),
@@ -107,8 +107,8 @@ class TextFieldWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(
                     right: (smallHorizontalPadding),
-                    top: (smallVerticalPadding) / 2,
-                    bottom: (smallVerticalPadding) / 2,
+                    top: (smallVerticalPadding),
+                    bottom: (smallVerticalPadding),
                   ),
                   child: Container(
                     width: (buttonHeight),
@@ -123,7 +123,7 @@ class TextFieldWidget extends StatelessWidget {
                           BorderRadius.circular((textFieldBorderRadius) / 5),
                     ),
                     child: SizedBox(
-                      height: (padding) / 2,
+                      height: (padding),
                       child: SvgPicture.asset(
                         suffixImage ?? '',
                         color: themeProvider.themeMode().kycCardTextColor,
@@ -169,27 +169,27 @@ class MultiLineTextFieldWidget extends StatelessWidget {
         hintText: hintText,
         hintStyle: themeProvider.textTheme().bodyText2,
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular((textFieldBorderRadius) / 2),
+            borderRadius: BorderRadius.circular((textFieldBorderRadius)),
             borderSide: BorderSide.none),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular((textFieldBorderRadius) / 2),
+          borderRadius: BorderRadius.circular((textFieldBorderRadius)),
           borderSide: BorderSide(
             color: primaryColor,
           ),
         ),
         disabledBorder: InputBorder.none,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular((textFieldBorderRadius) / 2),
+          borderRadius: BorderRadius.circular((textFieldBorderRadius)),
           borderSide: BorderSide.none,
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular((textFieldBorderRadius) / 2),
+          borderRadius: BorderRadius.circular((textFieldBorderRadius)),
           borderSide: BorderSide(
             color: Colors.red.withOpacity(0.4),
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular((textFieldBorderRadius) / 2),
+          borderRadius: BorderRadius.circular((textFieldBorderRadius)),
           borderSide: BorderSide(
             color: Colors.red.withOpacity(0.4),
           ),
@@ -278,14 +278,14 @@ class ColoredTextField extends StatelessWidget {
                   ? InputBorder.none
                   : OutlineInputBorder(
                       borderRadius:
-                          BorderRadius.circular((textFieldBorderRadius) / 2),
+                          BorderRadius.circular((textFieldBorderRadius)),
                       borderSide: BorderSide.none,
                     ),
               focusedBorder: !hasPadding
                   ? InputBorder.none
                   : OutlineInputBorder(
                       borderRadius:
-                          BorderRadius.circular((textFieldBorderRadius) / 2),
+                          BorderRadius.circular((textFieldBorderRadius)),
                       borderSide: BorderSide(
                         color: primaryColor,
                       ),
@@ -295,7 +295,7 @@ class ColoredTextField extends StatelessWidget {
                   ? InputBorder.none
                   : OutlineInputBorder(
                       borderRadius:
-                          BorderRadius.circular((textFieldBorderRadius) / 2),
+                          BorderRadius.circular((textFieldBorderRadius)),
                       borderSide: BorderSide.none,
                     ),
               errorBorder: InputBorder.none,
@@ -345,12 +345,12 @@ class ColoredTextField extends StatelessWidget {
                   ),
                   border: OutlineInputBorder(
                     borderRadius:
-                        BorderRadius.circular((textFieldBorderRadius) / 2),
+                        BorderRadius.circular((textFieldBorderRadius)),
                     borderSide: BorderSide.none,
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius:
-                        BorderRadius.circular((textFieldBorderRadius) / 2),
+                        BorderRadius.circular((textFieldBorderRadius)),
                     borderSide: BorderSide(
                       color: primaryColor,
                     ),
@@ -358,19 +358,19 @@ class ColoredTextField extends StatelessWidget {
                   disabledBorder: InputBorder.none,
                   enabledBorder: OutlineInputBorder(
                     borderRadius:
-                        BorderRadius.circular((textFieldBorderRadius) / 2),
+                        BorderRadius.circular((textFieldBorderRadius)),
                     borderSide: BorderSide.none,
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius:
-                        BorderRadius.circular((textFieldBorderRadius) / 2),
+                        BorderRadius.circular((textFieldBorderRadius)),
                     borderSide: const BorderSide(
                       color: Colors.red,
                     ),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderRadius:
-                        BorderRadius.circular((textFieldBorderRadius) / 2),
+                        BorderRadius.circular((textFieldBorderRadius)),
                     borderSide: const BorderSide(
                       color: Colors.red,
                     ),
