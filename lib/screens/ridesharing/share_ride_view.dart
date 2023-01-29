@@ -1,3 +1,6 @@
+import 'package:egov/shared/utils/resources/colors.dart';
+import 'package:egov/shared/utils/resources/dimension.dart';
+import 'package:egov/shared/widgets/primary_btn.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,7 +8,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_for_flutter/google_places_for_flutter.dart';
 import 'package:group_radio_button/group_radio_button.dart';
-import 'package:location/location.dart';
 
 import 'search_result_view.dart';
 
@@ -20,8 +22,10 @@ class ShareRideView extends ConsumerWidget {
           appBar: AppBar(),
           body: Column(
             children: [
+              HSpace(verticalPadding),
               RadioGroup<SharableRides>.builder(
                 direction: Axis.horizontal,
+                activeColor: primaryColor,
                 groupValue: ref.watch(selectedRide),
                 onChanged: (value) =>
                     ref.watch(selectedRide.notifier).state = value!,
@@ -30,6 +34,7 @@ class ShareRideView extends ConsumerWidget {
                   describeEnum(item),
                 ),
               ),
+              HSpace(verticalPadding),
               ref.watch(selectedRide) == SharableRides.bus
                   ? DropdownButton(
                       hint: const Text("Select Bus Stop"),
@@ -44,7 +49,7 @@ class ShareRideView extends ConsumerWidget {
                       placeholder: 'Enter pickup point',
                       apiKey: 'AIzaSyAor7DamjJerzkBJnD7vtbrmSOFQm3DKAA',
                       language: 'en',
-                      location: LatLng(data.latitude!, data.longitude!),
+                      location: LatLng(data.latitude, data.longitude),
                       radius: 3000,
                       onSelected: (Place place) async {},
                       onSearch: (Place place) {},
@@ -60,12 +65,19 @@ class ShareRideView extends ConsumerWidget {
                       },
                       child: const Text("Pick Time"))
                   : Container(),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const ShareRideSearchResult()));
-                  },
-                  child: const Text("Search..."))
+              const Spacer(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                child: EGOvButton(
+                    hasIcon: false,
+                    loading: false,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ShareRideSearchResult()));
+                    },
+                    text: "Search..."),
+              ),
+              HSpace(verticalPadding),
             ],
           ));
     }, error: (er, st) {
@@ -109,31 +121,7 @@ final selectedRide = StateProvider((ref) => SharableRides.taxi);
 final selectedBusStop = StateProvider((ref) => BusStops.first);
 final selectedBusTime = StateProvider((ref) => TimeOfDay.now());
 final getlocation = FutureProvider((ref) async {
-  bool serviceEnabled;
-  LocationPermission permission;
-
-  try {
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // state = AsyncValue.error(CustomException(message: "ServiceError"));
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // state = AsyncValue.error(
-        // CustomException(message: "DeniedPermissionError"));
-      }
-    } else if (permission == LocationPermission.whileInUse) {
-      return await Location().getLocation();
-    } else if (permission == LocationPermission.deniedForever) {
-      // state =
-      //     AsyncValue.error(CustomException(message: "DeniedForeverError"));
-    }
-    return await Location().getLocation();
-  } catch (e) {
-    rethrow;
-  }
+  return const LatLng(6.7, 6.7);
 });
 
 enum SharableRides { bike, bus, taxi }
