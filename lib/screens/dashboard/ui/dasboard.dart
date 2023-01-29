@@ -6,6 +6,7 @@ import 'package:egov/screens/payment/ui/payment_details.dart';
 import 'package:egov/screens/payment/ui/payment_history.dart';
 import 'package:egov/screens/payment/ui/share.dart';
 import 'package:egov/screens/payment/ui/withdraw.dart';
+import 'package:egov/screens/qrcode/qrcode_view.dart';
 import 'package:egov/screens/ridesharing/share_ride_view.dart';
 import 'package:egov/shared/utils/resources/colors.dart';
 import 'package:egov/shared/utils/resources/dimension.dart';
@@ -31,6 +32,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final size = MediaQuery.of(context).size;
     return Consumer<DashboardViewmodel>(builder: (context, value, child) {
       return Scaffold(
+        floatingActionButton: _showCurrentRide
+            ? FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => const QrCodeView()))
+                      .then((value) {
+                    _showCurrentRide = value;
+                    setState(() {});
+                  });
+                },
+                label: const Text('Scan QR Code'),
+              )
+            : const SizedBox.shrink(),
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           child: Column(
@@ -452,12 +466,14 @@ class PlanAJourneyWidget extends StatelessWidget {
                         .headline2
                         ?.copyWith(color: themeProvider.themeMode().ktextColor),
                   ),
-                  HSpace(smallVerticalPadding),
-                  Text(
-                    'Easily plan your journey to suit your daily transport needs',
-                    style: themeProvider.textTheme().bodyText1?.copyWith(
-                          color: themeProvider.themeMode().kPrimaryColorDeep,
-                        ),
+                  HSpace(padding),
+                  Center(
+                    child: Text(
+                      'Easily plan your journey to suit your\ndaily transport needs',
+                      style: themeProvider.textTheme().bodyText1?.copyWith(
+                            color: themeProvider.themeMode().kPrimaryColorDeep,
+                          ),
+                    ),
                   ),
                 ],
               ),

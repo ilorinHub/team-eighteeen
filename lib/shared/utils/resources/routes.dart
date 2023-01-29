@@ -19,7 +19,6 @@ import 'package:egov/screens/payment/ui/withdraw.dart';
 import 'package:egov/screens/profile/ui/profile.dart';
 import 'package:egov/screens/profile/ui/ride_history.dart';
 import 'package:egov/screens/ridesharing/share_ride_view.dart';
-import 'package:egov/screens/search/ui/search.dart';
 import 'package:egov/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +44,6 @@ class AppRoute {
         return MaterialPageRoute(builder: (_) => const ResetPasswordScreen());
       case ForgotPasswordScreen.routeName:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
-      case SearchScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const SearchScreen());
       case DashboardScreen.routeName:
         return MaterialPageRoute(builder: (_) => const DashboardScreen());
       case NotificationsScreen.routeName:
