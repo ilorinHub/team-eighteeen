@@ -43,6 +43,7 @@ dependencies:
   location: ^4.4.0
   get: ^4.6.5
   nfc_manager: ^3.2.0
+  pretty_qr_code: ^2.0.3
   flutter_credit_card: ^3.0.5
   
 
